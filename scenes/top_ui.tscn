@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bt33j5dwxano3"]
 
 [ext_resource type="Texture2D" uid="uid://bacqucona7fm3" path="res://assets/top_ui.png" id="1_j7odh"]
-[ext_resource type="Script" path="res://scripts/top_ui.gd" id="2_0qkha"]
+[ext_resource type="Script" uid="uid://pvllt7hbni2e" path="res://scripts/top_ui.gd" id="2_0qkha"]
 [ext_resource type="FontFile" uid="uid://b25431rxog83j" path="res://assets/fonts/Kenney Blocks.ttf" id="2_pei76"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yrpvj"]
