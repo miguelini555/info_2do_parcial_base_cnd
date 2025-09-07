@@ -203,6 +203,59 @@ func find_matches():
 		for j in height:
 			if all_pieces[i][j] != null:
 				var current_color = all_pieces[i][j].color
+				# -------------------------
+				# Detectar match de 4 horizontal
+				# -------------------------
+				if (
+					i > 0 and i < width - 2
+					and all_pieces[i - 1][j] != null and all_pieces[i + 1][j] != null and all_pieces[i + 2][j] != null
+					and all_pieces[i - 1][j].color == current_color
+					and all_pieces[i + 1][j].color == current_color
+					and all_pieces[i + 2][j].color == current_color
+				):
+					print("Match de 4 horizontal")
+
+				# -------------------------
+				# Detectar match de 4 vertical
+				# -------------------------
+				if (
+					j > 0 and j < height - 2
+					and all_pieces[i][j - 1] != null and all_pieces[i][j + 1] != null and all_pieces[i][j + 2] != null
+					and all_pieces[i][j - 1].color == current_color
+					and all_pieces[i][j + 1].color == current_color
+					and all_pieces[i][j + 2].color == current_color
+				):
+					print("Match de 4 vertical")
+
+				# -------------------------
+				# Detectar match de 5 horizontal
+				# -------------------------
+				if (
+					i > 1 and i < width - 2
+					and all_pieces[i - 2][j] != null and all_pieces[i - 1][j] != null
+					and all_pieces[i + 1][j] != null and all_pieces[i + 2][j] != null
+					and all_pieces[i - 2][j].color == current_color
+					and all_pieces[i - 1][j].color == current_color
+					and all_pieces[i + 1][j].color == current_color
+					and all_pieces[i + 2][j].color == current_color
+				):
+					print("Match de 5 horizontal")
+
+				# -------------------------
+				# Detectar match de 5 vertical
+				# -------------------------
+				if (
+					j > 1 and j < height - 2
+					and all_pieces[i][j - 2] != null and all_pieces[i][j - 1] != null
+					and all_pieces[i][j + 1] != null and all_pieces[i][j + 2] != null
+					and all_pieces[i][j - 2].color == current_color
+					and all_pieces[i][j - 1].color == current_color
+					and all_pieces[i][j + 1].color == current_color
+					and all_pieces[i][j + 2].color == current_color
+				):
+					print("Match de 5 vertical")
+
+#_________________________________________________________________________________________________________
 				# detect horizontal matches
 				if (
 					i > 0 and i < width -1 
@@ -233,7 +286,8 @@ func find_matches():
 					all_pieces[i][j + 1].dim()
 					
 	get_parent().get_node("destroy_timer").start()
-	
+#CAMBIO--------------------------------------------------------------------------------------------------------
+
 func destroy_matched():
 	var was_matched = false
 	var points_to_add = 0
