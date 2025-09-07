@@ -36,11 +36,37 @@ var first_touch = Vector2.ZERO
 var final_touch = Vector2.ZERO
 var is_controlling = false
 
-# scoring variables and signals
-
+# score CAMBIOS----------------------------------------------------------------------------------------------
+var score: int = 0
+@onready var score_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/score_label")
 
 # counter variables and signals
+var time_left: int = 60  # empieza con 60 segundos
+@onready var time_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/counter_label")
+var timer: Timer
 
+var min_score: int = 300  # mínimo de puntos necesarios
+@onready var min_score_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/min_score_label")
+
+func add_score(points: int) -> void:
+	score += points
+	if score_label:
+		score_label.text = str(score)
+	else:
+		print("Error: ScoreLabel no encontrado")
+
+# counter variables and signals CAMBIOOOOOOO
+func update_time_label():
+	if time_label:
+		time_label.text = str(time_left)
+
+func _on_timer_timeout():
+	if time_left > 0:
+		time_left -= 1
+		update_time_label()
+	else:
+		timer.stop()
+		game_over()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +74,17 @@ func _ready():
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()
+	timer = Timer.new() #CAMBIOS---------------------------------------------------------------
+	timer.wait_time = 1.0
+	timer.one_shot = false
+	timer.autostart = true
+	add_child(timer)
+	timer.connect("timeout", Callable(self, "_on_timer_timeout"))
+	update_time_label()
+	
+	if min_score_label:
+		min_score_label.text = "Meta: " + str(min_score)
+#FINAL CAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO------------------------------------------
 
 func make_2d_array():
 	var array = []
@@ -199,10 +236,12 @@ func find_matches():
 	
 func destroy_matched():
 	var was_matched = false
+	var points_to_add = 0
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
 				was_matched = true
+				add_score(10) #CAMBIO-----------------------------
 				all_pieces[i][j].queue_free()
 				all_pieces[i][j] = null
 				
@@ -274,4 +313,8 @@ func _on_refill_timer_timeout():
 	
 func game_over():
 	state = WAIT
-	print("game over")
+	if score >= min_score:
+		print("¡Ganaste! Obtuviste puntos: ", score)
+	else:
+		print("Perdiste. Obtuviste puntos: ", score, " de  meta: ", min_score)
+	get_tree().paused = true
