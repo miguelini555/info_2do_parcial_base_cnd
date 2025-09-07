@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://bi7swghsybgwl"]
+[gd_scene load_steps=3 format=3 uid="uid://bi7swghsybgwl"]
+
+[ext_resource type="Texture2D" uid="uid://bh1lbcdhhkva1" path="res://assets/pieces/Orange Column.png" id="1_i30nq"]
+[ext_resource type="Script" uid="uid://bgko3xthbsvt6" path="res://scripts/piece.gd" id="1_xv72s"]
 
 [node name="OrangeColumn" type="Node2D"]
+script = ExtResource("1_xv72s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i30nq")

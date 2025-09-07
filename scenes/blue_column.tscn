@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://8sba73ga8jww"]
+[gd_scene load_steps=3 format=3 uid="uid://8sba73ga8jww"]
+
+[ext_resource type="Script" uid="uid://bgko3xthbsvt6" path="res://scripts/piece.gd" id="1_chwpf"]
+[ext_resource type="Texture2D" uid="uid://c55dixxx362lf" path="res://assets/pieces/Blue Column.png" id="1_k7l62"]
 
 [node name="BlueColumn" type="Node2D"]
+script = ExtResource("1_chwpf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k7l62")

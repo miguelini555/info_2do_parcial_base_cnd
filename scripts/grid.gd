@@ -55,6 +55,16 @@ var special_pieces = [
 	preload("res://scenes/orange_adjacent.tscn")
 ]
 
+# index color
+var color_index = {
+	"blue": 0,
+	"green": 1,
+	"light_green": 2,
+	"pink": 3,
+	"yellow": 4,
+	"orange": 5
+}
+
 # swap back
 var piece_one = null
 var piece_two = null
@@ -245,7 +255,29 @@ func find_matches():
 					and all_pieces[i + 2][j].color == current_color
 				):
 					print("Match de 4 horizontal")
+					#-------------------------cambios nuevos
+					# obtener índice del color
+					var idx = color_index[current_color]
+
+					# eliminar fichas
+					all_pieces[i - 1][j].queue_free()
+					all_pieces[i + 1][j].queue_free()
+					all_pieces[i + 2][j].queue_free()
+					all_pieces[i][j].queue_free()
+					all_pieces[i - 1][j] = null
+					all_pieces[i + 1][j] = null
+					all_pieces[i + 2][j] = null
+					all_pieces[i][j] = null
+
+					# instanciar ficha de fila (horizontal)
+					var special = horizontal_pieces[idx].instantiate()
+					add_child(special)
+					special.position = grid_to_pixel(i, j)
+					special.scale = Vector2(1, 1)  # o cualquier valor que encaje en la grilla
+
+					all_pieces[i][j] = special
 					
+					collapse_columns()  # esta función ya mueve las piezas hacia abajo
 
 
 				# -------------------------

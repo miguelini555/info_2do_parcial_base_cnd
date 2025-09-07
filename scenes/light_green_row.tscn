@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://bqavc8x60n7jr"]
+[gd_scene load_steps=3 format=3 uid="uid://bqavc8x60n7jr"]
+
+[ext_resource type="Script" uid="uid://bgko3xthbsvt6" path="res://scripts/piece.gd" id="1_gnnb5"]
+[ext_resource type="Texture2D" uid="uid://bb0xx0yg2qgom" path="res://assets/pieces/Light Green Row.png" id="1_lbwpn"]
 
 [node name="LightGreenRow" type="Node2D"]
+script = ExtResource("1_gnnb5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_lbwpn")

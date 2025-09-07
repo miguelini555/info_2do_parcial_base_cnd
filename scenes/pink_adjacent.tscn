@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://10knxotd4ark"]
+[gd_scene load_steps=3 format=3 uid="uid://10knxotd4ark"]
+
+[ext_resource type="Script" uid="uid://bgko3xthbsvt6" path="res://scripts/piece.gd" id="1_cq235"]
+[ext_resource type="Texture2D" uid="uid://tqjdkn3v0yiu" path="res://assets/pieces/Pink Adjacent.png" id="1_unbfn"]
 
 [node name="PinkAdjacent" type="Node2D"]
+script = ExtResource("1_cq235")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_unbfn")
