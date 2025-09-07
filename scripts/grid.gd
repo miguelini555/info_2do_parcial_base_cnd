@@ -21,8 +21,39 @@ var possible_pieces = [
 	preload("res://scenes/yellow_piece.tscn"),
 	preload("res://scenes/orange_piece.tscn"),
 ]
+
 # current pieces in scene
 var all_pieces = []
+
+# row pieces
+var horizontal_pieces = [
+	preload("res://scenes/blue_row.tscn"),
+	preload("res://scenes/green_row.tscn"),
+	preload("res://scenes/light_green_row.tscn"),
+	preload("res://scenes/pink_row.tscn"),
+	preload("res://scenes/yellow_row.tscn"),
+	preload("res://scenes/orange_row.tscn"),
+]
+
+# column pieces
+var vertical_pieces = [
+	preload("res://scenes/blue_column.tscn"),
+	preload("res://scenes/green_column.tscn"),
+	preload("res://scenes/light_green_column.tscn"),
+	preload("res://scenes/pink_column.tscn"),
+	preload("res://scenes/yellow_column.tscn"),
+	preload("res://scenes/orange_column.tscn")
+]
+
+# adjacent pieces
+var special_pieces = [
+	preload("res://scenes/blue_adjacent.tscn"),
+	preload("res://scenes/green_adjacent.tscn"),
+	preload("res://scenes/light_green_adjacent.tscn"),
+	preload("res://scenes/pink_adjacent.tscn"),
+	preload("res://scenes/yellow_adjacent.tscn"),
+	preload("res://scenes/orange_adjacent.tscn")
+]
 
 # swap back
 var piece_one = null
@@ -214,6 +245,8 @@ func find_matches():
 					and all_pieces[i + 2][j].color == current_color
 				):
 					print("Match de 4 horizontal")
+					
+
 
 				# -------------------------
 				# Detectar match de 4 vertical
@@ -255,7 +288,7 @@ func find_matches():
 				):
 					print("Match de 5 vertical")
 
-#_________________________________________________________________________________________________________
+#_______________________________________________________________________________________________________________
 				# detect horizontal matches
 				if (
 					i > 0 and i < width -1 

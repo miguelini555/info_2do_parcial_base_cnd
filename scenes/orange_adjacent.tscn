@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://byifbketq7p7h"]
+
+[ext_resource type="Texture2D" uid="uid://eanefjlnypyc" path="res://assets/pieces/Orange Adjacent.png" id="1_xd30k"]
+
+[node name="OrangeAdjacent" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xd30k")

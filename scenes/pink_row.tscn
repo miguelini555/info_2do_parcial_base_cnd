@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c55yrnqpgybfk"]
+
+[ext_resource type="Texture2D" uid="uid://dkhvdwkx6q4i5" path="res://assets/pieces/Pink Row.png" id="1_cwais"]
+
+[node name="PinkRow" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cwais")
