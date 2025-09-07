@@ -273,12 +273,10 @@ func find_matches():
 					var special = horizontal_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-					special.scale = Vector2(1, 1)  # o cualquier valor que encaje en la grilla
 
 					all_pieces[i][j] = special
 					
 					collapse_columns()  # esta función ya mueve las piezas hacia abajo
-
 
 				# -------------------------
 				# Detectar match de 4 vertical
@@ -309,7 +307,6 @@ func find_matches():
 					var special = vertical_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-					special.scale = Vector2(1, 1)
 
 					all_pieces[i][j] = special
 
@@ -350,14 +347,12 @@ func find_matches():
 					var special = special_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-					special.scale = Vector2(1, 1)
 
 					# colocarla en la grilla
 					all_pieces[i][j] = special
 
 					# hacer que las fichas que estén arriba caigan
 					collapse_columns()
-
 
 				# -------------------------
 				# Detectar match de 5 vertical
@@ -393,7 +388,6 @@ func find_matches():
 					var special = special_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-					special.scale = Vector2(1, 1)
 
 					# colocarla en la grilla
 					all_pieces[i][j] = special
@@ -401,8 +395,6 @@ func find_matches():
 					# hacer que las fichas que estén arriba caigan
 					collapse_columns()
 
-
-#_______________________________________________________________________________________________________________
 				# detect horizontal matches
 				if (
 					i > 0 and i < width -1 

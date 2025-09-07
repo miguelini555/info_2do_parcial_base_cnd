@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5c0a1mipiltf" path="res://assets/pieces/Green Adjacent.png" id="1_ygijn"]
 
 [node name="GreenAdjacent" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_h3jkd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

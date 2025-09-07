@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://o60ibguctnm4" path="res://assets/pieces/Pink Column.png" id="1_gug8d"]
 
 [node name="PinkColumn" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_a5pya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

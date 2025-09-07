@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bg2lncm7m06a5" path="res://assets/pieces/Orange Row.png" id="1_kwnq8"]
 
 [node name="OrangeRow" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_a1ri7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
