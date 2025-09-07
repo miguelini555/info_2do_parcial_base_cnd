@@ -291,6 +291,30 @@ func find_matches():
 					and all_pieces[i][j + 2].color == current_color
 				):
 					print("Match de 4 vertical")
+					#-------------------------cambios nuevos
+					# obtener índice del color
+					var idx = color_index[current_color]
+
+					# eliminar fichas arriba y abajo (solo las que se quieren eliminar)
+					all_pieces[i][j - 1].queue_free()
+					all_pieces[i][j + 1].queue_free()
+					all_pieces[i][j + 2].queue_free()
+					all_pieces[i][j].queue_free()
+					all_pieces[i][j - 1] = null
+					all_pieces[i][j + 1] = null
+					all_pieces[i][j + 2] = null
+					all_pieces[i][j] = null
+
+					# instanciar ficha de columna (vertical)
+					var special = vertical_pieces[idx].instantiate()
+					add_child(special)
+					special.position = grid_to_pixel(i, j)
+					special.scale = Vector2(1, 1)
+
+					all_pieces[i][j] = special
+
+					# hacer caer las fichas de arriba
+					collapse_columns()
 
 				# -------------------------
 				# Detectar match de 5 horizontal
@@ -306,6 +330,35 @@ func find_matches():
 				):
 					print("Match de 5 horizontal")
 
+					# obtener índice del color
+					var idx = color_index[current_color]
+
+					# eliminar las fichas del match (excepto las que quieras mantener)
+					all_pieces[i - 2][j].queue_free()
+					all_pieces[i - 1][j].queue_free()
+					all_pieces[i][j].queue_free()
+					all_pieces[i + 1][j].queue_free()
+					all_pieces[i + 2][j].queue_free()
+
+					all_pieces[i - 2][j] = null
+					all_pieces[i - 1][j] = null
+					all_pieces[i][j] = null
+					all_pieces[i + 1][j] = null
+					all_pieces[i + 2][j] = null
+
+					# instanciar ficha especial adyacente (center)
+					var special = special_pieces[idx].instantiate()
+					add_child(special)
+					special.position = grid_to_pixel(i, j)
+					special.scale = Vector2(1, 1)
+
+					# colocarla en la grilla
+					all_pieces[i][j] = special
+
+					# hacer que las fichas que estén arriba caigan
+					collapse_columns()
+
+
 				# -------------------------
 				# Detectar match de 5 vertical
 				# -------------------------
@@ -319,6 +372,35 @@ func find_matches():
 					and all_pieces[i][j + 2].color == current_color
 				):
 					print("Match de 5 vertical")
+					
+					# obtener índice del color
+					var idx = color_index[current_color]
+
+					# eliminar las fichas del match (excepto la central que se convertirá en especial)
+					all_pieces[i][j - 2].queue_free()
+					all_pieces[i][j - 1].queue_free()
+					all_pieces[i][j].queue_free()
+					all_pieces[i][j + 1].queue_free()
+					all_pieces[i][j + 2].queue_free()
+
+					all_pieces[i][j - 2] = null
+					all_pieces[i][j - 1] = null
+					all_pieces[i][j] = null
+					all_pieces[i][j + 1] = null
+					all_pieces[i][j + 2] = null
+
+					# instanciar ficha especial adyacente (center)
+					var special = special_pieces[idx].instantiate()
+					add_child(special)
+					special.position = grid_to_pixel(i, j)
+					special.scale = Vector2(1, 1)
+
+					# colocarla en la grilla
+					all_pieces[i][j] = special
+
+					# hacer que las fichas que estén arriba caigan
+					collapse_columns()
+
 
 #_______________________________________________________________________________________________________________
 				# detect horizontal matches
