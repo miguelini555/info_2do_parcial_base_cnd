@@ -86,7 +86,7 @@ var time_left: int = 60  # empieza con 60 segundos
 @onready var time_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/counter_label")
 var timer: Timer
 
-var min_score: int = 300  # mínimo de puntos necesarios
+var min_score: int = 200  # mínimo de puntos necesarios
 @onready var min_score_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/min_score_label")
 
 func add_score(points: int) -> void:
@@ -429,17 +429,16 @@ func find_matches():
 
 func destroy_matched():
 	var was_matched = false
-	var points_to_add = 0
+	#var points_to_add = 0
 	for i in width:
 		for j in height:
 			if all_pieces[i][j] != null and all_pieces[i][j].matched:
 				was_matched = true
-				add_score(10) #CAMBIO-----------------------------
 				all_pieces[i][j].queue_free()
 				all_pieces[i][j] = null
-				
 	move_checked = true
 	if was_matched:
+		add_score(10) #CAMBIO-----------------------------
 		get_parent().get_node("collapse_timer").start()
 	else:
 		swap_back()
@@ -507,7 +506,7 @@ func _on_refill_timer_timeout():
 func game_over():
 	state = WAIT
 	if score >= min_score:
-		print("¡Ganaste! Obtuviste puntos: ", score)
+		print("Ganaste! Obtuviste puntos: ", score)
 	else:
 		print("Perdiste. Obtuviste puntos: ", score, " de  meta: ", min_score)
 	get_tree().paused = true
