@@ -77,16 +77,16 @@ var first_touch = Vector2.ZERO
 var final_touch = Vector2.ZERO
 var is_controlling = false
 
-# score CAMBIOS----------------------------------------------------------------------------------------------
+# score
 var score: int = 0
 @onready var score_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/score_label")
 
 # counter variables and signals
-var time_left: int = 60  # empieza con 60 segundos
+var time_left: int = 60
 @onready var time_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/counter_label")
 var timer: Timer
 
-var min_score: int = 200  # mínimo de puntos necesarios
+var min_score: int = 200
 @onready var min_score_label: Label = get_node("/root/Game/top_ui/MarginContainer/HBoxContainer/min_score_label")
 
 func add_score(points: int) -> void:
@@ -96,7 +96,7 @@ func add_score(points: int) -> void:
 	else:
 		print("Error: ScoreLabel no encontrado")
 
-# counter variables and signals CAMBIOOOOOOO
+# counter variables and signals
 func update_time_label():
 	if time_label:
 		time_label.text = str(time_left)
@@ -115,7 +115,7 @@ func _ready():
 	randomize()
 	all_pieces = make_2d_array()
 	spawn_pieces()
-	timer = Timer.new() #CAMBIOS---------------------------------------------------------------
+	timer = Timer.new()
 	timer.wait_time = 1.0
 	timer.one_shot = false
 	timer.autostart = true
@@ -125,7 +125,6 @@ func _ready():
 	
 	if min_score_label:
 		min_score_label.text = "Meta: " + str(min_score)
-#FINAL CAMBIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO------------------------------------------
 
 func make_2d_array():
 	var array = []
@@ -244,9 +243,6 @@ func find_matches():
 		for j in height:
 			if all_pieces[i][j] != null:
 				var current_color = all_pieces[i][j].color
-				# -------------------------
-				# Detectar match de 4 horizontal
-				# -------------------------
 				if (
 					i > 0 and i < width - 2
 					and all_pieces[i - 1][j] != null and all_pieces[i + 1][j] != null and all_pieces[i + 2][j] != null
@@ -255,11 +251,7 @@ func find_matches():
 					and all_pieces[i + 2][j].color == current_color
 				):
 					print("Match de 4 horizontal")
-					#-------------------------cambios nuevos
-					# obtener índice del color
 					var idx = color_index[current_color]
-
-					# eliminar fichas
 					all_pieces[i - 1][j].queue_free()
 					all_pieces[i + 1][j].queue_free()
 					all_pieces[i + 2][j].queue_free()
@@ -269,18 +261,12 @@ func find_matches():
 					all_pieces[i + 2][j] = null
 					all_pieces[i][j] = null
 
-					# instanciar ficha de fila (horizontal)
 					var special = horizontal_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-
 					all_pieces[i][j] = special
-					
-					collapse_columns()  # esta función ya mueve las piezas hacia abajo
+					collapse_columns()
 
-				# -------------------------
-				# Detectar match de 4 vertical
-				# -------------------------
 				if (
 					j > 0 and j < height - 2
 					and all_pieces[i][j - 1] != null and all_pieces[i][j + 1] != null and all_pieces[i][j + 2] != null
@@ -289,11 +275,7 @@ func find_matches():
 					and all_pieces[i][j + 2].color == current_color
 				):
 					print("Match de 4 vertical")
-					#-------------------------cambios nuevos
-					# obtener índice del color
 					var idx = color_index[current_color]
-
-					# eliminar fichas arriba y abajo (solo las que se quieren eliminar)
 					all_pieces[i][j - 1].queue_free()
 					all_pieces[i][j + 1].queue_free()
 					all_pieces[i][j + 2].queue_free()
@@ -303,19 +285,12 @@ func find_matches():
 					all_pieces[i][j + 2] = null
 					all_pieces[i][j] = null
 
-					# instanciar ficha de columna (vertical)
 					var special = vertical_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-
 					all_pieces[i][j] = special
-
-					# hacer caer las fichas de arriba
 					collapse_columns()
 
-				# -------------------------
-				# Detectar match de 5 horizontal
-				# -------------------------
 				if (
 					i > 1 and i < width - 2
 					and all_pieces[i - 2][j] != null and all_pieces[i - 1][j] != null
@@ -326,37 +301,24 @@ func find_matches():
 					and all_pieces[i + 2][j].color == current_color
 				):
 					print("Match de 5 horizontal")
-
-					# obtener índice del color
 					var idx = color_index[current_color]
-
-					# eliminar las fichas del match (excepto las que quieras mantener)
 					all_pieces[i - 2][j].queue_free()
 					all_pieces[i - 1][j].queue_free()
 					all_pieces[i][j].queue_free()
 					all_pieces[i + 1][j].queue_free()
 					all_pieces[i + 2][j].queue_free()
-
 					all_pieces[i - 2][j] = null
 					all_pieces[i - 1][j] = null
 					all_pieces[i][j] = null
 					all_pieces[i + 1][j] = null
 					all_pieces[i + 2][j] = null
 
-					# instanciar ficha especial adyacente (center)
 					var special = special_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-
-					# colocarla en la grilla
 					all_pieces[i][j] = special
-
-					# hacer que las fichas que estén arriba caigan
 					collapse_columns()
 
-				# -------------------------
-				# Detectar match de 5 vertical
-				# -------------------------
 				if (
 					j > 1 and j < height - 2
 					and all_pieces[i][j - 2] != null and all_pieces[i][j - 1] != null
@@ -367,35 +329,25 @@ func find_matches():
 					and all_pieces[i][j + 2].color == current_color
 				):
 					print("Match de 5 vertical")
-					
-					# obtener índice del color
 					var idx = color_index[current_color]
-
-					# eliminar las fichas del match (excepto la central que se convertirá en especial)
 					all_pieces[i][j - 2].queue_free()
 					all_pieces[i][j - 1].queue_free()
 					all_pieces[i][j].queue_free()
 					all_pieces[i][j + 1].queue_free()
 					all_pieces[i][j + 2].queue_free()
-
 					all_pieces[i][j - 2] = null
 					all_pieces[i][j - 1] = null
 					all_pieces[i][j] = null
 					all_pieces[i][j + 1] = null
 					all_pieces[i][j + 2] = null
 
-					# instanciar ficha especial adyacente (center)
 					var special = special_pieces[idx].instantiate()
 					add_child(special)
 					special.position = grid_to_pixel(i, j)
-
-					# colocarla en la grilla
 					all_pieces[i][j] = special
-
-					# hacer que las fichas que estén arriba caigan
 					collapse_columns()
 
-				# detect horizontal matches
+				# detect horizontal matches (3)
 				if (
 					i > 0 and i < width -1 
 					and 
@@ -425,7 +377,6 @@ func find_matches():
 					all_pieces[i][j + 1].dim()
 					
 	get_parent().get_node("destroy_timer").start()
-#CAMBIO--------------------------------------------------------------------------------------------------------
 
 func destroy_matched():
 	var was_matched = false
@@ -438,7 +389,7 @@ func destroy_matched():
 				all_pieces[i][j] = null
 	move_checked = true
 	if was_matched:
-		add_score(10) #CAMBIO-----------------------------
+		add_score(10)
 		get_parent().get_node("collapse_timer").start()
 	else:
 		swap_back()
