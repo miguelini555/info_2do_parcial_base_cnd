@@ -361,6 +361,7 @@ func find_matches():
 					all_pieces[i][j].dim()
 					all_pieces[i + 1][j].matched = true
 					all_pieces[i + 1][j].dim()
+					
 				# detect vertical matches
 				if (
 					j > 0 and j < height -1 
